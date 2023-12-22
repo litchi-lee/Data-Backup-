@@ -12,9 +12,9 @@
 图形界面（使用Qt设计）  
 
 # 说明
-Qt版本：Qt5.14.2
-DataBackup文件夹存放各项.h/.cpp文件
-配置文件configuration.json存放于build-DataBackup-Desktop_Qt_5_14_2_MinGW_64_bit-Debug\debug路径下
+Qt版本：Qt5.14.2 
+DataBackup文件夹存放各项.h/.cpp文件 
+配置文件configuration.json存放于build-DataBackup-Desktop_Qt_5_14_2_MinGW_64_bit-Debug\debug路径下 
 
 ## 备份界面
 ![image](https://github.com/litchi-lee/Data-Backup-/assets/79855544/662e244f-47c1-44c1-86d3-cb14b24ea610)
