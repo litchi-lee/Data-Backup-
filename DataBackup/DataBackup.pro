@@ -26,6 +26,7 @@ HEADERS += \
     decompressor.h \
     md5.h \
     pack.h \
+    restore.h \
     unpack.h \
     widget.h
 

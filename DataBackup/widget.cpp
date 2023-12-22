@@ -7,6 +7,15 @@ Widget::Widget(QWidget *parent)
     , ui(new Ui::Widget)
 {
     ui->setupUi(this);
+
+    this->setWindowTitle("2023软工小组的备份软件");
+    ui->backUpWidget->setTabText(0, "备份");
+    ui->backUpWidget->setTabText(1, "恢复");
+    ui->backUpWidget->setTabText(2, "配置");
+    ui->backUpWidget->setTabToolTip(0,"备份重要的文件");
+    ui->backUpWidget->setTabToolTip(1,"恢复已备份的文件");
+    ui->backUpWidget->setTabToolTip(2,"修改备份目标路径");
+    ui->backUpWidget->setMovable(true);
 }
 
 Widget::~Widget()
@@ -77,6 +86,7 @@ void Widget::on_clearFileButton_clicked()
     }
 }
 
+// 备份功能
 void Widget::on_backUpButton_clicked()
 {
     // 没有需要备份的文件
@@ -110,24 +120,89 @@ void Widget::on_backUpButton_clicked()
     QMessageBox::information(this, "提示", message[errorCode], QMessageBox::Yes, QMessageBox::Yes);
 }
 
+// 更新需恢复文件显示列表
+void Widget::on_updateRestoreFileButton_clicked()
+{
+    QString filePath = ConfigManager::getDesPath();
+    QDirIterator iter(filePath, QDirIterator::Subdirectories);
+    // 迭代遍历备份路径下所有文件，将其去重后加入列表
+    while (iter.hasNext()) {
+        iter.next();
+        QFileInfo info = iter.fileInfo();
+
+        if (info.fileName() == ".." || info.fileName() == ".") continue;
+
+        // 去重
+        bool duplication = false;
+        for (int i = 0; i < ui->restoreFileList->topLevelItemCount(); ++i) {
+            if (ui->restoreFileList->topLevelItem(i)->text(0) == QFileInfo(info).fileName()) {
+                duplication = true;
+                break;
+            }
+        }
+        if (duplication) continue;
+
+        QTreeWidgetItem* fileItem = new QTreeWidgetItem;
+        fileItem->setText(0, QFileInfo(info).fileName());
+        fileItem->setText(1, QString::number(QFileInfo(info).size()));
+        fileItem->setText(2, QFileInfo(info).fileTime(QFileDevice::FileModificationTime).toString(Qt::TextDate));
+        ui->restoreFileList->addTopLevelItem(fileItem);
+    }
+    if (!ui->restoreFileList->currentItem() && ui->restoreFileList->topLevelItemCount()) {
+        ui->restoreFileList->setCurrentItem(ui->restoreFileList->topLevelItem(0));
+    }
+}
+
+// 删除某个已备份的文件
 void Widget::on_deleteStoredFileButton_clicked()
 {
+    if (ui->restoreFileList->currentItem()) {
+        // 删除该文件
+        QString filePath = ConfigManager::getDesPath() + "\\" + ui->restoreFileList->currentItem()->text(0);
+        QFile currentFile(filePath);
+        currentFile.remove();
 
+        // 删去显示列表中该项
+        delete ui->restoreFileList->currentItem();
+    }
 }
 
+// 选择恢复路径
 void Widget::on_viewRestoreFilePathButton_clicked()
 {
-
+    QString directory = QFileDialog::getExistingDirectory(this, tr("恢复到"), "/home", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    if (directory != "") {
+        ui->restorePathLineEdit->setText(directory);
+    }
 }
 
+// 恢复功能
 void Widget::on_restoreFileButton_clicked()
 {
-
+    if (!ui->restoreFileList->currentItem()) {
+        QMessageBox::information(this, "提示", "请选择要恢复的备份文件。", QMessageBox::Yes, QMessageBox::Yes);
+        return;
+    }
+    if (ui->restorePathLineEdit->text().trimmed() == "") {
+        QMessageBox::information(this, "提示", "请选择要恢复到的目录。", QMessageBox::Yes, QMessageBox::Yes);
+        return;
+    }
+    if (ui->keyWordRestoreCheckBox->isChecked() && ui->keyWordRestoreLineEdit->text().trimmed() == "") {
+        QMessageBox::information(this, "提示", "请输入密码。", QMessageBox::Yes, QMessageBox::Yes);
+        return;
+    }
+    QString srcFilePath = ConfigManager::getDesPath() + "\\" + ui->restoreFileList->currentItem()->text(0);
+    int errorCode = Restore::restore(srcFilePath, ui->restorePathLineEdit->text(), ui->keyWordRestoreCheckBox->isChecked(), ui->keyWordRestoreLineEdit->text());
+    QStringList message = {"正常执行",  "源文件扩展名不是bak", "打开.bak源文件失败",
+                           "打开目标路径失败", ".bak文件过短，频率表不完整，解压失败", ".bak文件结尾不完整，解压失败",
+                           "密码错误", "解码错误", ".tar文件打开失败", "打开目标路径失败", "创建目录失败"};
+    QMessageBox::information(this, "提示", message[errorCode], QMessageBox::Yes, QMessageBox::Yes);
 }
 
+// 只有在restore区密码复选框勾选后才能编辑密码框
 void Widget::on_keyWordRestoreCheckBox_stateChanged(int arg1)
 {
-
+    ui->keyWordRestoreLineEdit->setEnabled(ui->keyWordRestoreCheckBox->checkState());
 }
 
 // 使加密复选框和密码编辑框互斥
@@ -145,3 +220,5 @@ void Widget::on_changeDesPath_clicked()
         ConfigManager::updateDesPath(directory);
     }
 }
+
+
