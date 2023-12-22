@@ -4,8 +4,10 @@
 #include <QWidget>
 #include <configManager.h>
 #include <backUp.h>
+#include <restore.h>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QDateTime>
 #include <regex>
 
 QT_BEGIN_NAMESPACE
@@ -42,6 +44,8 @@ private slots:
     void on_encodeCheckBox_stateChanged(int arg1);
 
     void on_changeDesPath_clicked();
+
+    void on_updateRestoreFileButton_clicked();
 
 private:
     Ui::Widget *ui;

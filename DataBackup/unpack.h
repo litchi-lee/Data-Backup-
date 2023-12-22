@@ -7,15 +7,15 @@
 class Unpack {
   public:
     /*
-     * tar打开失败返回1
-     * 写目标文件失败返回2
-     * 创建目录失败返回3
+     * tar打开失败返回8
+     * 写目标文件失败返回9
+     * 创建目录失败返回10
      * 正常返回0
      */
     static int unpack(QString tarFilename, QString destination) {
         QFile tar(tarFilename);
         bool success = tar.open(QFile::ReadOnly);
-        if (!success) return 1; // 打包文件打开失败
+        if (!success) return 8; // 打包文件打开失败
 
         int pathLength;
         int dir;
@@ -36,7 +36,7 @@ class Unpack {
             { // 文件
                 QFile data(destination + "/" + relativePath); // 存入的绝对目的路径
                 bool success = data.open(QFile::WriteOnly);
-                if (!success) return 2; // 文件打开失败
+                if (!success) return 9; // 文件打开失败
                 if (fileLength) {
                     char* content = new char[fileLength];
                     tar.read(content, fileLength);
@@ -52,7 +52,7 @@ class Unpack {
                 QDir dir;
                 if (QFileInfo(destination + "/" + relativePath).exists()) continue; // 目录已存在，则无需再次创建
                 bool success = dir.mkdir(destination + "/" + relativePath); // 目录创建成功
-                if (!success) return 3; // 创建目录失败
+                if (!success) return 10; // 创建目录失败
             }
         }
         return 0;

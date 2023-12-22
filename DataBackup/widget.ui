@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>933</width>
+    <height>733</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,10 +16,10 @@
   <widget class="QTabWidget" name="backUpWidget">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>0</y>
-     <width>794</width>
-     <height>591</height>
+     <x>20</x>
+     <y>20</y>
+     <width>891</width>
+     <height>691</height>
     </rect>
    </property>
    <property name="toolTip">
@@ -29,7 +29,7 @@
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="backUp">
     <attribute name="title">
@@ -53,7 +53,7 @@
       <rect>
        <x>20</x>
        <y>40</y>
-       <width>741</width>
+       <width>841</width>
        <height>321</height>
       </rect>
      </property>
@@ -71,22 +71,22 @@
     <widget class="QPushButton" name="backUpButton">
      <property name="geometry">
       <rect>
-       <x>650</x>
-       <y>540</y>
-       <width>80</width>
-       <height>20</height>
+       <x>720</x>
+       <y>610</y>
+       <width>131</width>
+       <height>31</height>
       </rect>
      </property>
      <property name="text">
       <string> 备份</string>
      </property>
     </widget>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>15</x>
        <y>371</y>
-       <width>741</width>
+       <width>841</width>
        <height>41</height>
       </rect>
      </property>
@@ -134,13 +134,13 @@
       </item>
      </layout>
     </widget>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>480</y>
-       <width>741</width>
-       <height>51</height>
+       <y>520</y>
+       <width>831</width>
+       <height>71</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -176,13 +176,13 @@
       </item>
      </layout>
     </widget>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>20</x>
        <y>430</y>
-       <width>581</width>
-       <height>41</height>
+       <width>701</width>
+       <height>71</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -208,7 +208,7 @@
       <rect>
        <x>20</x>
        <y>41</y>
-       <width>741</width>
+       <width>841</width>
        <height>291</height>
       </rect>
      </property>
@@ -227,11 +227,6 @@
        <string>备份时间</string>
       </property>
      </column>
-     <column>
-      <property name="text">
-       <string>是否加密</string>
-      </property>
-     </column>
     </widget>
     <widget class="QLabel" name="label_4">
      <property name="geometry">
@@ -246,26 +241,13 @@
       <string>待恢复文件列表</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="deleteStoredFileButton">
-     <property name="geometry">
-      <rect>
-       <x>670</x>
-       <y>350</y>
-       <width>91</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string> 删除</string>
-     </property>
-    </widget>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>390</y>
-       <width>741</width>
-       <height>71</height>
+       <y>410</y>
+       <width>841</width>
+       <height>91</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -308,13 +290,13 @@
       </item>
      </layout>
     </widget>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>480</y>
-       <width>561</width>
-       <height>61</height>
+       <y>520</y>
+       <width>841</width>
+       <height>81</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_5">
@@ -330,18 +312,44 @@
       </item>
      </layout>
     </widget>
+    <widget class="QWidget" name="">
+     <property name="geometry">
+      <rect>
+       <x>560</x>
+       <y>340</y>
+       <width>301</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_7">
+      <item>
+       <widget class="QPushButton" name="updateRestoreFileButton">
+        <property name="text">
+         <string>更新列表</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="deleteStoredFileButton">
+        <property name="text">
+         <string> 删除</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </widget>
    <widget class="QWidget" name="config">
     <attribute name="title">
      <string>页</string>
     </attribute>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>30</x>
        <y>50</y>
-       <width>711</width>
-       <height>24</height>
+       <width>821</width>
+       <height>91</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_6">
