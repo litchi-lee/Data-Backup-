@@ -4,13 +4,18 @@
 ## 基本要求：  
 数据备份、数据还原
 ## 扩展要求：  
-文件类型支持  
+文件类型支持
 元数据支持  
-打包解包  
-压缩解密  
-加密解密  
-图形界面  
+打包解包（tar） 
+压缩解压（哈夫曼算法） 
+加密解密（MD5） 
+图形界面（使用Qt设计）  
 
-![image](https://github.com/litchi-lee/Data-Backup-/assets/79855544/0c9acad5-e532-44cf-bdae-47bf71c11ddf)
-![image](https://github.com/litchi-lee/Data-Backup-/assets/79855544/835a1b55-de3a-4126-9724-a7643fc831aa)
-![image](https://github.com/litchi-lee/Data-Backup-/assets/79855544/d0586a58-a4af-451b-a3e4-1f3dd46a2acb)
+## 备份界面
+![image](https://github.com/litchi-lee/Data-Backup-/assets/79855544/662e244f-47c1-44c1-86d3-cb14b24ea610)
+## 恢复界面
+![image](https://github.com/litchi-lee/Data-Backup-/assets/79855544/79ad619f-4b46-4084-9d7b-1af992309af0)
+## 配置界面
+![image](https://github.com/litchi-lee/Data-Backup-/assets/79855544/6b764929-67d3-4f85-8c88-634d74fc1d51)
+
+
