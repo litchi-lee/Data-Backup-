@@ -16,6 +16,9 @@ Widget::Widget(QWidget *parent)
     ui->backUpWidget->setTabToolTip(1,"恢复已备份的文件");
     ui->backUpWidget->setTabToolTip(2,"修改备份目标路径");
     ui->backUpWidget->setMovable(true);
+
+    ui->keyWordRestoreLineEdit->setEnabled(false);
+    ui->keyWordLineEdit->setEnabled(false);
 }
 
 Widget::~Widget()
@@ -145,7 +148,7 @@ void Widget::on_updateRestoreFileButton_clicked()
         QTreeWidgetItem* fileItem = new QTreeWidgetItem;
         fileItem->setText(0, QFileInfo(info).fileName());
         fileItem->setText(1, QString::number(QFileInfo(info).size()));
-        fileItem->setText(2, QFileInfo(info).fileTime(QFileDevice::FileModificationTime).toString(Qt::TextDate));
+        fileItem->setText(2, QFileInfo(info).fileTime(QFileDevice::FileModificationTime).toString("yyyy-MM-dd ddd hh:mm:ss"));
         ui->restoreFileList->addTopLevelItem(fileItem);
     }
     if (!ui->restoreFileList->currentItem() && ui->restoreFileList->topLevelItemCount()) {
